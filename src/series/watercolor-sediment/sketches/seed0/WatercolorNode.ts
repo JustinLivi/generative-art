@@ -1,6 +1,7 @@
 import { random } from 'lodash';
-import { ArtBox } from 'utilities/ArtBox';
-import { constrain } from 'utilities/math';
+
+import { ArtBox } from '../../../../utilities/ArtBox';
+import { constrain } from '../../../../utilities/math';
 
 export class WatercolorNode {
   public hue: number;

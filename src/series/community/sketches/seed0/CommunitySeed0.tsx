@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { SketchPad } from 'utilities/SketchPad';
 
+import { SketchPad } from '../../../../utilities/SketchPad';
 import { CommunitySketch } from './CommunitySketch';
 
 export interface CommunitySeed0Props {

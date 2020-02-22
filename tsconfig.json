@@ -16,8 +16,7 @@
     "sourceMap": true,
     "outDir": "build",
     "noEmit": false,
-    "jsx": "react",
-    "baseUrl": "./src"
+    "jsx": "react"
   },
   "include": ["src"],
   "exclude": ["src/setupTests.ts", "*.test.ts", "*.test.tsx"]

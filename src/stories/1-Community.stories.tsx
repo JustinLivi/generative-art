@@ -1,5 +1,6 @@
 import React from 'react';
-import { CommunitySeed0, CommunityStatement } from 'series/community';
+
+import { CommunitySeed0, CommunityStatement } from '../series/community';
 
 export default {
   title: 'Community',

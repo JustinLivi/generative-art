@@ -1,9 +1,9 @@
 import { forEach, reduce } from 'lodash';
-import { Animator } from 'utilities/Animator';
-import { ArtBox } from 'utilities/ArtBox';
-import { dist } from 'utilities/math';
-import { Sketch } from 'utilities/SketchPad';
 
+import { Animator } from '../../../../utilities/Animator';
+import { ArtBox } from '../../../../utilities/ArtBox';
+import { dist } from '../../../../utilities/math';
+import { Sketch } from '../../../../utilities/SketchPad';
 import { CNode } from './CNode';
 
 const distNodes = ({ loc: { x: x1, y: y1 } }: CNode, { loc: { x: x2, y: y2 } }: CNode) => dist(x1, y1, x2, y2);

@@ -1,5 +1,6 @@
 import React from 'react';
-import { WatercolorSedimentSeed0 } from 'series/watercolor-sediment';
+
+import { WatercolorSedimentSeed0 } from '../series/watercolor-sediment';
 
 // eslint-disable-next-line import/no-default-export
 export default {

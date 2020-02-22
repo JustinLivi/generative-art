@@ -1,9 +1,10 @@
 import { random, sortBy } from 'lodash';
-import { WatercolorNode } from 'series/watercolor-sediment/sketches/seed0/WatercolorNode';
-import { Animator } from 'utilities/Animator';
-import { ArtBox } from 'utilities/ArtBox';
-import { constrain } from 'utilities/math';
-import { Sketch } from 'utilities/SketchPad';
+
+import { Animator } from '../../../../utilities/Animator';
+import { ArtBox } from '../../../../utilities/ArtBox';
+import { constrain } from '../../../../utilities/math';
+import { Sketch } from '../../../../utilities/SketchPad';
+import { WatercolorNode } from './WatercolorNode';
 
 export class WatercolorSedimentSketch implements Sketch {
   private readonly animator: Animator;
