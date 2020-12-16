@@ -1,12 +1,15 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 export abstract class Sketch {
   // eslint-disable-next-line max-len
-  // eslint-disable-next-line no-useless-constructor, no-unused-vars, @typescript-eslint/no-empty-function, no-empty-function, @typescript-eslint/no-unused-vars
+  // eslint-disable-next-line no-useless-constructor, no-unused-vars, @typescript-eslint/no-empty-function, no-empty-function, @typescript-eslint/no-unused-vars, @typescript-eslint/no-useless-constructor
   constructor(canvasRef?: HTMLCanvasElement) {}
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   reset(): void {}
+
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  destroy(): void {}
 }
 
 export interface SketchPadProps {
@@ -16,7 +19,7 @@ export interface SketchPadProps {
   sketchCreator: (canvasRef: HTMLCanvasElement) => Sketch;
 }
 
-export const SketchPad: React.SFC<SketchPadProps> = ({ width, height, className, sketchCreator }) => {
+export const SketchPad: React.FunctionComponent<SketchPadProps> = ({ width, height, className, sketchCreator }) => {
   const [sketch, setSketch] = useState<Sketch | null>(null);
   const ref = useCallback(
     (canvasRef: HTMLCanvasElement | null) => {
@@ -25,6 +28,15 @@ export const SketchPad: React.SFC<SketchPadProps> = ({ width, height, className,
       }
     },
     [sketch, sketchCreator],
+  );
+
+  useEffect(
+    () => () => {
+      if (sketch) {
+        sketch.destroy();
+      }
+    },
+    [sketch],
   );
 
   return (

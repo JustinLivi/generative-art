@@ -1,8 +1,8 @@
-import { random, sortBy } from 'lodash';
+import { sortBy } from 'lodash';
 
 import { Animator } from '../../../../utilities/Animator';
 import { ArtBox } from '../../../../utilities/ArtBox';
-import { constrain } from '../../../../utilities/math';
+import { constrain, random } from '../../../../utilities/math';
 import { Sketch } from '../../../../utilities/SketchPad';
 import { WatercolorNode } from './WatercolorNode';
 
@@ -32,6 +32,10 @@ export class WatercolorSedimentSketch implements Sketch {
     this.reset();
   }
 
+  public destroy() {
+    this.animator.stop();
+  }
+
   public reset() {
     this.artBox.clear();
     this.seedcount = Math.floor(random(4, 20));
@@ -39,7 +43,7 @@ export class WatercolorSedimentSketch implements Sketch {
     const variance = random(10, 40);
     for (let count = 0; count < this.seedcount; count += 1) {
       this.nodes[count] = new WatercolorNode(this.artBox, centerhue - variance, centerhue + variance);
-      this.nodeHeights[count] = random(this.height);
+      this.nodeHeights[count] = random(0, this.height);
     }
     this.nodeHeights[0] = 0;
     this.nodeHeights[this.seedcount - 1] = this.height;

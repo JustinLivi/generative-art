@@ -5,3 +5,5 @@ export const constrain = (val: number, low: number, high: number) => {
   if (val > high) return high;
   return val;
 };
+
+export const random = (low: number, high: number) => Math.random() * (high - low) + low;

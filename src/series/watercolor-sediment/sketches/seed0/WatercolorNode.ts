@@ -1,7 +1,5 @@
-import { random } from 'lodash';
-
 import { ArtBox } from '../../../../utilities/ArtBox';
-import { constrain } from '../../../../utilities/math';
+import { constrain, random } from '../../../../utilities/math';
 
 export class WatercolorNode {
   public hue: number;
@@ -84,7 +82,7 @@ export class WatercolorNode {
           random(2, 10 + 5 * this.streakiness),
           0,
           0,
-          random(Math.PI * 2),
+          random(0, Math.PI * 2),
         );
         this.artBox.ctx.fill();
         this.artBox.ctx.restore();

@@ -32,6 +32,10 @@ export class CommunitySketch implements Sketch {
     this.animator.start();
   }
 
+  public destroy() {
+    this.animator.stop();
+  }
+
   public reset() {
     this.resetNodes();
     this.artBox.clear();

@@ -15,6 +15,8 @@ export class Animator {
 
   private then: number = window.performance.now();
 
+  private rafHandler?: number;
+
   private readonly maxFrames?: number;
 
   private readonly fpsInterval: number;
@@ -41,6 +43,9 @@ export class Animator {
   }
 
   public stop() {
+    if (typeof this.rafHandler === 'number') {
+      raf.cancel(this.rafHandler);
+    }
     this.pause();
     this.reset();
   }
@@ -54,7 +59,7 @@ export class Animator {
       this.running = false;
       return;
     }
-    raf(this.animate);
+    this.rafHandler = raf(this.animate);
     this.frame += 1;
     const now = window.performance.now();
     const elapsed = now - this.then;
