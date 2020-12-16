@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -19,15 +15,9 @@
     "declaration": true,
     "sourceMap": true,
     "outDir": "build",
-    "noEmit": true,
+    "noEmit": false,
     "jsx": "react"
   },
-  "include": [
-    "src"
-  ],
-  "exclude": [
-    "src/setupTests.ts",
-    "*.test.ts",
-    "*.test.tsx"
-  ]
+  "include": ["src"],
+  "exclude": ["src/setupTests.ts", "*.test.ts", "*.test.tsx"]
 }
