@@ -102,6 +102,7 @@ export class CommunitySketch implements Sketch {
     }
   }
 
+  // eslint-disable-next-line class-methods-use-this
   private optimizeDistance(targetNode: CNode, comparator: CNode) {
     const {
       optimal,

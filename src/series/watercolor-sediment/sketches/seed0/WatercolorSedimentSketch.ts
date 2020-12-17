@@ -15,7 +15,7 @@ export class WatercolorSedimentSketch implements Sketch {
 
   private readonly height: number;
 
-  private seedcount = 50;
+  private seedcount = 20;
 
   private theta = 0;
 

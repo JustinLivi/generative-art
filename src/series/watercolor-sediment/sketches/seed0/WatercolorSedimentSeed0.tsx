@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 import { SketchPad } from '../../../../utilities/SketchPad';
 import { WatercolorSedimentSketch } from './WatercolorSedimentSketch';
@@ -9,7 +9,7 @@ export interface WatercolorSedimentSeed0Props {
   className?: string;
 }
 
-export const WatercolorSedimentSeed0: React.SFC<WatercolorSedimentSeed0Props> = ({
+export const WatercolorSedimentSeed0: React.FunctionComponent<WatercolorSedimentSeed0Props> = ({
   width = 1920,
   height = 1080,
   className,
