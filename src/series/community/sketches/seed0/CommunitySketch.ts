@@ -1,5 +1,3 @@
-import { forEach, reduce } from 'lodash';
-
 import { Animator } from '../../../../utilities/Animator';
 import { ArtBox } from '../../../../utilities/ArtBox';
 import { dist } from '../../../../utilities/math';
@@ -44,7 +42,7 @@ export class CommunitySketch implements Sketch {
   }
 
   public draw() {
-    forEach(this.nodes, targetNode => {
+    this.nodes.forEach(targetNode => {
       const farthest = this.findBestMatch(targetNode, (current, best) => best === undefined || current > best);
       const closest = this.findBestMatch(targetNode, (current, best) => best === undefined || current < best);
       if (farthest !== undefined) {
@@ -83,7 +81,7 @@ export class CommunitySketch implements Sketch {
   private findBestMatch(targetNode: CNode, isBetter: (current: number, best: number | undefined) => boolean) {
     let best: number;
     const { optimal, id } = targetNode;
-    return reduce(this.nodes, (candidate, comparator, comparatorId) => {
+    return this.nodes.reduce((candidate, comparator, comparatorId) => {
       if (comparatorId === id) {
         return candidate;
       }

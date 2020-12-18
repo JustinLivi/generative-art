@@ -9,7 +9,11 @@ export interface CommunitySeed0Props {
   className?: string;
 }
 
-export const CommunitySeed0: React.SFC<CommunitySeed0Props> = ({ width = 1920, height = 1080, className }) => (
+export const CommunitySeed0: React.FunctionComponent<CommunitySeed0Props> = ({
+  width = 1920,
+  height = 1080,
+  className,
+}) => (
   <SketchPad
     width={width}
     height={height}
@@ -17,3 +21,6 @@ export const CommunitySeed0: React.SFC<CommunitySeed0Props> = ({ width = 1920, h
     sketchCreator={canvas => new CommunitySketch(canvas)}
   />
 );
+
+// eslint-disable-next-line import/no-default-export
+export default CommunitySeed0;

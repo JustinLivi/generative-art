@@ -21,3 +21,6 @@ export const WatercolorSedimentSeed0: React.FunctionComponent<WatercolorSediment
     sketchCreator={canvas => new WatercolorSedimentSketch(canvas)}
   />
 );
+
+// eslint-disable-next-line import/no-default-export
+export default WatercolorSedimentSeed0;

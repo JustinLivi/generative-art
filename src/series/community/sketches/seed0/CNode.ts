@@ -1,4 +1,4 @@
-import { random } from 'lodash';
+import { random } from '../../../../utilities/math';
 
 export interface Vector {
   x: number;
@@ -24,17 +24,17 @@ export class CNode {
 
   constructor(id: number, width: number, height: number) {
     this.id = id;
-    this.optimal = random(20);
-    this.theta = random(360);
+    this.optimal = random(0, 20);
+    this.theta = random(0, 360);
     this.loc = {
-      x: random(width),
-      y: random(height),
+      x: random(0, width),
+      y: random(0, height),
     };
     this.vel = {
       x: 0,
       y: 0,
     };
-    this.grey = random(255);
+    this.grey = random(0, 255);
     this.alpha = random(10, 70) / 255;
     this.speed = random(0.1, 3);
   }

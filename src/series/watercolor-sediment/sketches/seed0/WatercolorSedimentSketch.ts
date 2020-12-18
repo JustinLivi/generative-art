@@ -1,5 +1,3 @@
-import { sortBy } from 'lodash';
-
 import { Animator } from '../../../../utilities/Animator';
 import { ArtBox } from '../../../../utilities/ArtBox';
 import { constrain, random } from '../../../../utilities/math';
@@ -47,7 +45,7 @@ export class WatercolorSedimentSketch implements Sketch {
     }
     this.nodeHeights[0] = 0;
     this.nodeHeights[this.seedcount - 1] = this.height;
-    this.nodeHeights = sortBy(this.nodeHeights);
+    this.nodeHeights = this.nodeHeights.sort();
     this.theta = -20;
     this.animator.start();
   }
@@ -75,7 +73,7 @@ export class WatercolorSedimentSketch implements Sketch {
     }
     this.nodeHeights[0] = 0;
     this.nodeHeights[this.seedcount - 1] = this.height;
-    this.nodeHeights = sortBy(this.nodeHeights);
+    this.nodeHeights = this.nodeHeights.sort();
     for (let count = 0; count < this.seedcount; count += 1) {
       this.render(count, this.nodeHeights[count]);
     }
