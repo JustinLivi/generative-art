@@ -1,3 +1,5 @@
+import sort from 'fast-sort';
+
 import { Animator } from '../../../../utilities/Animator';
 import { ArtBox } from '../../../../utilities/ArtBox';
 import { constrain, random } from '../../../../utilities/math';
@@ -37,15 +39,15 @@ export class WatercolorSedimentSketch implements Sketch {
   public reset() {
     this.artBox.clear();
     this.seedcount = Math.floor(random(4, 20));
-    const centerhue = random(0, 360);
+    const centerhue = random(360);
     const variance = random(10, 40);
     for (let count = 0; count < this.seedcount; count += 1) {
       this.nodes[count] = new WatercolorNode(this.artBox, centerhue - variance, centerhue + variance);
-      this.nodeHeights[count] = random(0, this.height);
+      this.nodeHeights[count] = random(this.height);
     }
     this.nodeHeights[0] = 0;
     this.nodeHeights[this.seedcount - 1] = this.height;
-    this.nodeHeights = this.nodeHeights.sort();
+    this.nodeHeights = sort(this.nodeHeights).asc();
     this.theta = -20;
     this.animator.start();
   }
@@ -73,7 +75,7 @@ export class WatercolorSedimentSketch implements Sketch {
     }
     this.nodeHeights[0] = 0;
     this.nodeHeights[this.seedcount - 1] = this.height;
-    this.nodeHeights = this.nodeHeights.sort();
+    this.nodeHeights = sort(this.nodeHeights).asc();
     for (let count = 0; count < this.seedcount; count += 1) {
       this.render(count, this.nodeHeights[count]);
     }

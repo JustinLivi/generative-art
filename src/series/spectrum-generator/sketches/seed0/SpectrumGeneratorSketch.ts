@@ -3,7 +3,7 @@ import { ArtBox } from '../../../../utilities/ArtBox';
 import { constrain, random } from '../../../../utilities/math';
 import { Sketch } from '../../../../utilities/SketchPad';
 
-const newValue = (value: number) => constrain(value + Math.round(random(-1, 1)), 0, 256);
+const newValue = (value: number) => constrain(value + random(-1, 1), 0, 255);
 
 export class SpectrumGeneratorSketch implements Sketch {
   private readonly animator: Animator;
@@ -20,7 +20,13 @@ export class SpectrumGeneratorSketch implements Sketch {
 
   private readonly xScale: number;
 
-  private readonly yScale: number;
+  private readonly imageData = new ImageData(this.yCount, this.xCount);
+
+  private readonly baseUintArray: Uint8ClampedArray = this.imageData.data;
+
+  private readonly prerenderCanvas = document.createElement('canvas');
+
+  private readonly prerenderContext = this.prerenderCanvas.getContext('2d');
 
   private red = 0;
 
@@ -28,17 +34,16 @@ export class SpectrumGeneratorSketch implements Sketch {
 
   private blue = 0;
 
-  private previousAdjustment = 0;
-
   constructor(canvas: HTMLCanvasElement) {
     this.artBox = new ArtBox(canvas);
     this.artBox.ctx.imageSmoothingEnabled = false;
     this.width = canvas.width;
     this.height = canvas.height;
     this.xScale = this.width / this.xCount;
-    this.yScale = this.height / this.yCount;
+    this.prerenderCanvas.width = this.yCount;
+    this.prerenderCanvas.height = this.xCount;
     this.draw = this.draw.bind(this);
-    this.animator = new Animator({ draw: this.draw, fps: 20 });
+    this.animator = new Animator({ draw: this.draw });
     this.reset();
   }
 
@@ -47,31 +52,49 @@ export class SpectrumGeneratorSketch implements Sketch {
   }
 
   public reset() {
+    for (let i = 0; i < this.baseUintArray.length; i += 4) {
+      this.baseUintArray[i] = 255;
+      this.baseUintArray[i + 1] = 255;
+      this.baseUintArray[i + 2] = 255;
+      this.baseUintArray[i + 3] = 0;
+    }
     this.artBox.clear();
-    this.red = random(0, 265);
-    this.green = random(0, 265);
-    this.blue = random(0, 265);
+    this.red = random(255);
+    this.green = random(255);
+    this.blue = random(255);
     this.animator.start();
   }
 
   public draw(timingAdjustment: number) {
-    this.artBox.ctx.putImageData(
-      this.artBox.ctx.getImageData(0, 0, this.width, this.height),
-      this.xScale * timingAdjustment,
-      0,
-    );
-    this.artBox.ctx.save();
-    this.artBox.ctx.scale(this.xScale * timingAdjustment, this.yScale);
+    if (!this.prerenderContext) {
+      return;
+    }
     this.drawLine();
+    this.artBox.ctx.save();
+    this.prerenderContext.putImageData(this.imageData, 0, 0);
+    this.artBox.ctx.translate(0, this.height);
+    this.artBox.ctx.rotate(-Math.PI / 2);
+    this.artBox.ctx.drawImage(
+      this.prerenderCanvas,
+      0,
+      // this only really applies to high resolutions
+      Math.round(this.xScale * timingAdjustment - this.xScale),
+      this.height,
+      this.width,
+    );
     this.artBox.ctx.restore();
   }
 
   drawSquare(y: number) {
-    this.artBox.setFillRgba(this.red, this.green, this.blue, 1);
-    this.artBox.ctx.fillRect(0, y, 1, 1);
+    const dy = y * 4;
+    this.baseUintArray[dy] = Math.round(this.red);
+    this.baseUintArray[dy + 1] = Math.round(this.green);
+    this.baseUintArray[dy + 2] = Math.round(this.blue);
+    this.baseUintArray[dy + 3] = 255;
   }
 
   drawLine() {
+    this.baseUintArray.copyWithin(this.yCount * 4, 0);
     for (let y = 0; y < this.yCount; y += 1) {
       this.red = newValue(this.red);
       this.green = newValue(this.green);
