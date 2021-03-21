@@ -83,7 +83,7 @@ export class AncientBeastsSketch implements Sketch {
       Math.round(red + random(-3, 3)),
       Math.round(green + random(-3, 3)),
       Math.round(blue + random(-3, 3)),
-      random(50, 150),
+      random(0.2, 0.6),
     );
     for (let count = 0; count < 30; count += 1) {
       this.artBox.ctx.beginPath();
