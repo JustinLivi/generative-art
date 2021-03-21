@@ -22,12 +22,14 @@ export interface SketchPadProps {
 
 export const SketchPad: React.FunctionComponent<SketchPadProps> = ({ width, height, className, sketchCreator }) => {
   const [sketch, setSketch] = useState<Sketch | null>(null);
+  const [canvas, setCanvas] = useState<HTMLCanvasElement | null>(null);
 
   const previousWidth = usePrevious(width);
   const previousHeight = usePrevious(height);
 
   const ref = useCallback(
     (canvasRef: HTMLCanvasElement | null) => {
+      setCanvas(canvasRef);
       if ((sketch === null || width !== previousWidth || height !== previousHeight) && canvasRef !== null) {
         if (sketch !== null) {
           sketch.destroy();
@@ -48,16 +50,38 @@ export const SketchPad: React.FunctionComponent<SketchPadProps> = ({ width, heig
   );
 
   return (
-    <canvas
-      className={className}
-      width={width}
-      height={height}
-      ref={ref}
-      onClick={() => {
-        if (sketch !== null) {
-          sketch.reset();
-        }
-      }}
-    />
+    <div>
+      <canvas
+        className={className}
+        width={width}
+        height={height}
+        ref={ref}
+        onClick={() => {
+          if (sketch !== null) {
+            sketch.reset();
+          }
+        }}
+      />
+      <button
+        type="button"
+        onClick={() => {
+          if (canvas !== null) {
+            if (canvas.requestFullscreen) {
+              canvas.requestFullscreen();
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            } else if ((canvas as any).webkitRequestFullScreen) {
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              (canvas as any).webkitRequestFullScreen();
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            } else if ((canvas as any).mozRequestFullScreen) {
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              (canvas as any).mozRequestFullScreen();
+            }
+          }
+        }}
+      >
+        fullscreen
+      </button>
+    </div>
   );
 };
