@@ -1,6 +1,6 @@
 {
   "name": "justinlivi-generative-art",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
   "dependencies": {
