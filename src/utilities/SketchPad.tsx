@@ -50,9 +50,8 @@ export const SketchPad: React.FunctionComponent<SketchPadProps> = ({ width, heig
   );
 
   return (
-    <div>
+    <div className={className}>
       <canvas
-        className={className}
         width={width}
         height={height}
         ref={ref}
