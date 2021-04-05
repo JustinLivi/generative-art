@@ -30,6 +30,14 @@ export class ArtBox {
     this.ctx.clearRect(0, 0, this.width, this.height);
   }
 
+  setStrokeRgba(r: number, g: number, b: number, a: number) {
+    this.ctx.strokeStyle = `rgba(${r},${g},${b},${a})`;
+  }
+
+  setStrokeHsla(hue: number, saturation: number, lightness: number, alpha: number) {
+    this.ctx.strokeStyle = `hsla(${hue},${saturation}%,${lightness}%, ${alpha})`;
+  }
+
   setFillRgba(r: number, g: number, b: number, a: number) {
     this.ctx.fillStyle = `rgba(${r},${g},${b},${a})`;
   }
