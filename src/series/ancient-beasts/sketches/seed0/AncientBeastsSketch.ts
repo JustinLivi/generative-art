@@ -19,9 +19,9 @@ export class AncientBeastsSketch implements Sketch {
 
   private nodes: Node[] = [];
 
-  private globalVelocity = 10;
+  private globalVelocity = 0;
 
-  private globalAcceleration = random(1.001, 1.02);
+  private globalAcceleration = 0;
 
   private offsetX = 0;
 
@@ -32,8 +32,8 @@ export class AncientBeastsSketch implements Sketch {
     this.width = canvas.width;
     this.height = canvas.height;
     this.draw = this.draw.bind(this);
-    this.resetNodes();
     this.animator = new Animator({ draw: this.draw });
+    this.reset();
     this.animator.start();
   }
 
@@ -63,7 +63,7 @@ export class AncientBeastsSketch implements Sketch {
       }
     });
     this.globalVelocity *= this.globalAcceleration;
-    if (1 / this.globalVelocity <= 0.02) {
+    if (1 / this.globalVelocity <= this.scaleValueBasedOnWidth(0.02)) {
       this.animator.stop();
     }
     this.artBox.ctx.restore();
@@ -88,10 +88,10 @@ export class AncientBeastsSketch implements Sketch {
     for (let count = 0; count < 30; count += 1) {
       this.artBox.ctx.beginPath();
       this.artBox.ctx.ellipse(
-        x1 + (count * (x2 - x1)) / 30.0 + random(-2, 2),
-        y1 + (count * (y2 - y1)) / 30.0 + random(-2, 2),
-        random(0.25, 1.5),
-        random(0.25, 1.5),
+        x1 + (count * (x2 - x1)) / 30 + this.scaleValueBasedOnWidth(random(-2, 2)),
+        y1 + (count * (y2 - y1)) / 30 + this.scaleValueBasedOnWidth(random(-2, 2)),
+        this.scaleValueBasedOnWidth(random(0.25, 1.5)),
+        this.scaleValueBasedOnWidth(random(0.25, 1.5)),
         random(2 * Math.PI),
         random(2 * Math.PI),
         random(2 * Math.PI),
@@ -99,10 +99,10 @@ export class AncientBeastsSketch implements Sketch {
       this.artBox.ctx.fill();
       this.artBox.ctx.beginPath();
       this.artBox.ctx.ellipse(
-        x1 + (count * (x2 - x1)) / 30.0 + random(-2, 2),
-        y1 + (count * (y2 - y1)) / 30.0 + random(-2, 2),
-        random(0.25, 1.5),
-        random(0.25, 1.5),
+        x1 + (count * (x2 - x1)) / 30 + this.scaleValueBasedOnWidth(random(-2, 2)),
+        y1 + (count * (y2 - y1)) / 30 + this.scaleValueBasedOnWidth(random(-2, 2)),
+        this.scaleValueBasedOnWidth(random(0.25, 1.5)),
+        this.scaleValueBasedOnWidth(random(0.25, 1.5)),
         random(2 * Math.PI),
         random(2 * Math.PI),
         random(2 * Math.PI),
@@ -133,6 +133,10 @@ export class AncientBeastsSketch implements Sketch {
     for (let count = 0; count < this.nodecount; count += 1) {
       this.nodes[count] = new Node(count, this.width, this.height);
     }
+  }
+
+  private scaleValueBasedOnWidth(value: number) {
+    return (this.width / 1920) * value;
   }
 
   // eslint-disable-next-line class-methods-use-this

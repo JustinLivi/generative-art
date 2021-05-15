@@ -8,7 +8,7 @@ export interface Vector {
 export class Node {
   public readonly id: number;
 
-  public readonly optimal = 120;
+  public readonly optimal: number;
 
   public readonly theta: number;
 
@@ -29,6 +29,7 @@ export class Node {
       x: random(0, width),
       y: random(0, height),
     };
+    this.optimal = (width / 1920) * 120;
     this.vel = {
       x: 0,
       y: 0,

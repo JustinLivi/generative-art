@@ -19,6 +19,8 @@ export class CommunitySketch implements Sketch {
 
   private readonly nodes: CNode[] = [];
 
+  private readonly nodeWidth: number;
+
   constructor(canvas: HTMLCanvasElement) {
     this.artBox = new ArtBox(canvas);
     this.width = canvas.width;
@@ -28,6 +30,7 @@ export class CommunitySketch implements Sketch {
     this.resetNodes();
     this.animator = new Animator({ draw: this.draw, maxFrames: 500 });
     this.animator.start();
+    this.nodeWidth = this.scaleValueBasedOnWidth(6);
   }
 
   public destroy() {
@@ -74,7 +77,7 @@ export class CommunitySketch implements Sketch {
     const {
       loc: { x, y },
     } = targetNode;
-    this.artBox.rect(x, y, 6, 6);
+    this.artBox.rect(x, y, this.nodeWidth, this.nodeWidth);
     this.artBox.fill();
   }
 
@@ -92,6 +95,10 @@ export class CommunitySketch implements Sketch {
       }
       return candidate;
     });
+  }
+
+  private scaleValueBasedOnWidth(value: number) {
+    return (this.width / 1920) * value;
   }
 
   private resetNodes() {
