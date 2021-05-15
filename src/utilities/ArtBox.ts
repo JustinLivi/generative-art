@@ -18,10 +18,10 @@ export class ArtBox {
     this.ctx = ctx;
   }
 
-  rectline(x1: number, y1: number, x2: number, y2: number, dotCount = 20) {
+  rectline(x1: number, y1: number, x2: number, y2: number, size: number, dotCount = 20) {
     this.ctx.beginPath();
     for (let count = 0; count < dotCount; count += 1) {
-      this.ctx.rect(x1 + (count * (x2 - x1)) / dotCount, y1 + (count * (y2 - y1)) / dotCount, 2, 2);
+      this.ctx.rect(x1 + (count * (x2 - x1)) / dotCount, y1 + (count * (y2 - y1)) / dotCount, size, size);
     }
     this.ctx.fill();
   }

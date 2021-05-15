@@ -21,6 +21,8 @@ export class CommunitySketch implements Sketch {
 
   private readonly nodeWidth: number;
 
+  private readonly lineSquareWidth: number;
+
   constructor(canvas: HTMLCanvasElement) {
     this.artBox = new ArtBox(canvas);
     this.width = canvas.width;
@@ -28,6 +30,7 @@ export class CommunitySketch implements Sketch {
     this.draw = this.draw.bind(this);
     this.nodecount = 100;
     this.resetNodes();
+    this.lineSquareWidth = this.scaleValueBasedOnWidth(2);
     this.animator = new Animator({ draw: this.draw, maxFrames: 500 });
     this.animator.start();
     this.nodeWidth = this.scaleValueBasedOnWidth(6);
@@ -70,7 +73,7 @@ export class CommunitySketch implements Sketch {
       loc: { x: x2, y: y2 },
     } = comparator;
     this.artBox.setFillRgba(grey, grey, grey, alpha);
-    this.artBox.rectline(x2, y2, x1, y1);
+    this.artBox.rectline(x2, y2, x1, y1, this.lineSquareWidth);
   }
 
   private renderNode(targetNode: CNode) {
